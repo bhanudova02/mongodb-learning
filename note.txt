@@ -1,0 +1,221 @@
+*to create new express application follow these steps
+
+>npx express-generator --no-view --git appName
+>npx express-generator --no-view --git ./
+
+-remove the [bin,public,routes] folder
+-and clear the app.js code like empty
+
+-after that we need to install nodemon
+
+nodemon install steps
+---------------------
+>npm install --save-dev nodemon
+
+-nodemon always restart your sever whenver you make any changes in the code
+-after install to make it work follow below steps
+-go to the package.json
+*below private & and above script you add this type like
+
+"type": "module",
+
+
+Faq: Why use "type": "module"?
+Ans: -by defalut Node.js treat .js file as CommonJs module, where you can use:
+       const express = require('express');
+     -but if you add like this
+       * 'type':'module' -->then Node.js will treat .js file as ES Module, where you use
+       *  it treat like this --> import express from 'express'
+
+FAQ: So When Should You Use "type" : "module"?
+Ans: -if you're using import / export syntax
+     -if you want to be more aligned with modern JavaScript(ES6+)
+     -if you're using newer tools and libraries that recommend or require ESM (ECMA Script Module)
+
+
+-also we need change the script also like this
+
+  "type":"module",
+  "scripts": {
+    "start": "node app.js",
+    "dev":"nodemon app.js"
+  },
+
+
+*i will show the differnce between "start":"node app.js", "dev":"nodemon app.js"
+
+-so follow these steps
+-open app.js
+
+app.js file
+-----------
+console.log("Server Started")
+
+>npm start
+
+-you can see the terminal Server Stated 
+-But if i change the console.log("Server Stated localhsot:5000") like this 
+ console.log("meesage") not updated
+
+
+>npm run dev
+*if you're start with above command with you applciaiton like this
+*whenver you updated the console.log("meesage") it will automatically updated
+*server also not stopped..
+*open app.js file
+
+app.js
+------
+console.log("server stated..")
+
+>npm run dev
+
+*after that update the console.log("server stated.. localhost:5000:) save the file
+*now you can see the differnce between 
+    "start": "node app.js",     
+    "dev":"nodemon app.js"
+
+
+*if you want development process smoother by setting up "linter' in you applciaiton
+*a linter is a tool that checks your code for potnetials erros, bad practices 
+ or styles issues before even you run it
+*so we can add more code, clean way as we continues scaling our api
+*we will install most popular linter 'ESList'
+
+Popular JavaScript Linters
+--------------------------
+*ESLint (most popular)
+*JSHint(older,less used now)
+*StandrdJS(opinionated style guide + linter)
+
+
+
+
+run this command to install eslist
+>npx eslint --init
+ *processed to y --> 
+   -y all
+
+ *What do want to lint?
+  -JavaScript
+ *What type of module does your project to use?
+  -JavaScript module(import/export)
+ *Which framework does your project use? 
+  -None of these
+ *Does your project use TypeScript 
+  -no
+ *Where does your code run?
+  -Node
+ *eslist,@eslist/js, global Would you like to install them now?
+  -Yes
+ *Which package manager do you want to use?..
+  -npm
+   
+
+*now check you root directory eslint.config.js was created.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Create Express.Js Server
+-------------------------
+-open app.js file
+
+app.js
+------
+import express from 'express';
+
+const app = express();
+
+// you can create like routes like this
+// you can use method like this --> app.get() --> app.post() --> app.put()
+// in this case we will use --> app.get() method
+
+app.get("/",(req,res)=>{
+ res.send("Welcome To The Subsription Tracker API!")
+});
+// ("/") --> path where routes would be reachable
+// app.get('/',()=>{}) --> uses callback function
+// inside the above arrow function two arguments is required to access the information
+// app.get('/',(req,res)=>{})
+
+
+
+
+// you can create your first route this is not enough to access routes
+// we have to make the server listen, for request trying to access specific routes
+// you can do like this 
+app.listen(3000,()=>{
+    console.log("Subscription Tracker API is running on http://localhost:3000")
+})
+
+// 3000 ---> port 
+// () =>{} --> using callback function
+
+//don't forget to export defalut app;
+
+export default app;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Configuration
+=============================
+>npm install dotenv
+ *it's package that's allow retrive our environment variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,32 +1,19 @@
 import express from 'express';
+import { PORT } from './config/env.js';
+import userRouter from './routes/user.routes.js';
+import authRouter from './routes/auth.routes.js';
+import subscriptionRoutes from './routes/subscription.routes.js';
 
 const app = express();
 
-// you can create like routes like this
-// you can use method like this --> app.get() --> app.post() --> app.put()
-// in this case we will use --> app.get() method
+//  api/v1/auth/sign-up     
+app.use('/api/v1/auth',authRouter);
+app.use('/api/v1/users',userRouter)
+app.use('/api/v1/subscription',subscriptionRoutes)
 
-app.get("/",(req,res)=>{
- res.send("Welcome To The Subsription Tracker API!")
-});
-// ("/") --> path where routes would be reachable
-// app.get('/',()=>{}) --> uses callback function
-// inside the above arrow function two arguments is required to access the information
-// app.get('/',(req,res)=>{})
+app.get('/',(req,res)=>res.send('Welcome To Subscription Tracker API'))
 
-
-
-
-// you can create your first route this is not enough to access routes
-// we have to make the server listen, for request trying to access specific routes
-// you can do like this 
-app.listen(3000,()=>{
-    console.log("Subscription Tracker API is running on http://localhost:3000")
+app.listen(PORT,()=>{
+    console.log(`Server Stated: http://localhost:${PORT}`)
 })
-
-// 3000 ---> port 
-// () =>{} --> using callback function
-
-//don't forget to export defalut app;
-
-export default app;
+export default app; 
